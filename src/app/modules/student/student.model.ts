@@ -1,6 +1,8 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose' 
 import validator from 'validator'
 import { Guardian, LocalGuardian, Student, UserName } from './student.interface'
+
+ 
 
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -92,6 +94,9 @@ const studentSchema = new Schema<Student>({
     enum: ['active', 'blocked'],
     default: 'active',
   },
+  academicDepartment: { type: String, required: true },
+  createdAt: { type: String, required: true },
+  updatedAt: { type: String, required: true }
 })
 
 export const StudentModel = model<Student>('Student', studentSchema)
