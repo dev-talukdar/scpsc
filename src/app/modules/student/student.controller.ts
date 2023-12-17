@@ -1,19 +1,15 @@
 import { Request, Response } from 'express'
-import { StudentServices } from './student.service' 
+import { StudentServices } from './student.service'
 import studentValidationSchema from './student.validation'
 // import studentValidationSchema from './student.validation'
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-
     //creating a schema validation using zod
     const { student: studentData } = req.body
 
     // data validation using zod
     const zodParsedData = studentValidationSchema.parse(studentData)
-
-
-
 
     // const { error, value } = studentValidationSchema.validate(studentData)
     const result = await StudentServices.createStudentIntoDb(zodParsedData)
@@ -31,10 +27,10 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'Student is created successfully',
       data: result,
     })
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'Something went wrong',
+      message: err.message || 'Something went wrong',
       error: err,
     })
   }

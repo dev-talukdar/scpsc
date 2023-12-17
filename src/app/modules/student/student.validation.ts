@@ -1,45 +1,45 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 const userNameValidationSchema = z.object({
-    firstName: z.string().max(20).min(1),
-    middleName: z.string().optional(),
-    lastName: z.string().min(1), 
-  });
-  
-  const guardianValidationSchema = z.object({
-    fatherName: z.string().min(1),
-    fatherOccupation:z.string().min(1),
-    fatherContactNo:z.string().min(1),
-    motherName: z.string().min(1),
-    motherOccupation: z.string().min(1),
-    motherContactNo: z.string().min(1),
-  });
-  
-  const localGuardianValidationSchema = z.object({
-    name: z.string().min(1),
-    occupation: z.string().min(1),
-    contactNo: z.string().min(1),
-    address: z.string().min(1),
-  });
-  
-  const studentValidationSchema = z.object({
-    id: z.string(),
-    name: userNameValidationSchema,
-    gender: z.enum(['male', 'female', 'other']),
-    dateOfBirth: z.string(),
-    email: z.string().email('Valid Email is required'),
-    contactNumber: z.string(),
-    emergencyContactNumber: z.string(),
-    bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
-    presentAddress: z.string(),
-    permanentAddress: z.string(),
-    guardian: guardianValidationSchema,
-    localGuardian: localGuardianValidationSchema,
-    profilePicture: z.string(),
-    isActive: z.enum(['active', 'blocked']).default('active'),
-    academicDepartment: z.string(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-  });
+  firstName: z.string().max(20).min(1),
+  middleName: z.string().optional(),
+  lastName: z.string().min(1),
+})
 
-  export default studentValidationSchema;
+const guardianValidationSchema = z.object({
+  fatherName: z.string().min(1),
+  fatherOccupation: z.string().min(1),
+  fatherContactNo: z.string().min(1),
+  motherName: z.string().min(1),
+  motherOccupation: z.string().min(1),
+  motherContactNo: z.string().min(1),
+})
+
+const localGuardianValidationSchema = z.object({
+  name: z.string().min(1),
+  occupation: z.string().min(1),
+  contactNo: z.string().min(1),
+  address: z.string().min(1),
+})
+
+const studentValidationSchema = z.object({
+  id: z.string(),
+  name: userNameValidationSchema,
+  gender: z.enum(['male', 'female', 'other']),
+  dateOfBirth: z.string(),
+  email: z.string().email('Valid Email is required'),
+  contactNumber: z.string(),
+  emergencyContactNumber: z.string(),
+  bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
+  presentAddress: z.string(),
+  permanentAddress: z.string(),
+  guardian: guardianValidationSchema,
+  localGuardian: localGuardianValidationSchema,
+  profilePicture: z.string(),
+  isActive: z.enum(['active', 'blocked']).default('active'),
+  academicDepartment: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+
+export default studentValidationSchema

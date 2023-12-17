@@ -1,10 +1,15 @@
-import { Schema, model } from 'mongoose' 
+import { Schema, model } from 'mongoose'
 import validator from 'validator'
-import { Guardian, LocalGuardian, Student, UserName } from './student.interface'
+import {
+  StudentModel,
+  TGuardian,
+  TLocalGuardian,
+  TStudent,
+  TUserName,
+} from './student.interface'
+import bcrypt from 'bcrypt'
 
- 
-
-const userNameSchema = new Schema<UserName>({
+const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: [true, 'First name is required'],
@@ -23,7 +28,7 @@ const userNameSchema = new Schema<UserName>({
   },
 })
 
-const guardianSchema = new Schema<Guardian>({
+const guardianSchema = new Schema<TGuardian>({
   fatherName: {
     type: String,
     required: [true, 'Father name is required'],
@@ -39,7 +44,7 @@ const guardianSchema = new Schema<Guardian>({
   motherOccupation: { type: String, required: true },
   motherContactNo: { type: String, required: true },
 })
-const localGuardianSchema = new Schema<LocalGuardian>({
+const localGuardianSchema = new Schema<TLocalGuardian>({
   name: {
     type: String,
     required: [true, 'Guardian name is required'],
@@ -50,8 +55,9 @@ const localGuardianSchema = new Schema<LocalGuardian>({
   address: { type: String, required: true },
 })
 
-const studentSchema = new Schema<Student>({
+const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String, required: true, unique: true },
+  password: { type: String, required: true, unique: true },
   name: {
     type: userNameSchema,
     required: true,
@@ -96,7 +102,30 @@ const studentSchema = new Schema<Student>({
   },
   academicDepartment: { type: String, required: true },
   createdAt: { type: String, required: true },
-  updatedAt: { type: String, required: true }
+  updatedAt: { type: String, required: true },
 })
 
-export const StudentModel = model<Student>('Student', studentSchema)
+// pre save middleware / hook
+studentSchema.pre('save', function () {
+  console.log(this, 'pre hook: we will save our data')
+  // hashing password and save into DB
+})
+
+// post save middleware / hook
+studentSchema.post('save', function () {
+  console.log(this, 'we saved our data')
+})
+
+// creating a custom static method
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id })
+  return existingUser
+}
+
+//creating a custom instance method
+// studentSchema.methods.isUserExists = async function(id: string){
+//   const existingUser = await Student.findOne({id});
+//   return existingUser
+// }
+
+export const Student = model<TStudent, StudentModel>('Student', studentSchema)
