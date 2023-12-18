@@ -41,6 +41,7 @@ export type TStudent = {
   academicDepartment: string
   createdAt: string
   updatedAt: string
+  isDeleted: boolean
 }
 
 // for creating static
