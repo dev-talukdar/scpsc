@@ -73,7 +73,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       enum: ['male', 'female', 'other'],
       required: true,
     },
-    dateOfBirth: { type: String, required: true },
+    dateOfBirth: { type: Date },
     email: {
       type: String,
       required: [true, 'Valid Email is required'],
@@ -99,11 +99,11 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       type: localGuardianSchema,
       required: true,
     },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicSemester',
+    },
     profilePicture: { type: String },
-    academicDepartment: { type: String, required: true },
-    createdAt: { type: String, required: true },
-    updatedAt: { type: String, required: true },
-    isDeleted: { type: Boolean, default: false },
   },
   {
     toJSON: {
