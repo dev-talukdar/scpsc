@@ -104,7 +104,9 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       ref: 'AcademicSemester',
     },
     profilePicture: { type: String },
+    academicDepartment: { type: String },
   },
+
   {
     toJSON: {
       virtuals: true,
