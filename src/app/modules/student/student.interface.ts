@@ -39,10 +39,10 @@ export type TStudent = {
   localGuardian: TLocalGuardian
   admissionSemester: Types.ObjectId
   profilePicture?: string
-  academicDepartment: string
+  isDeleted: boolean
+  academicDepartment: Types.ObjectId
   createdAt: string
   updatedAt: string
-  isDeleted: boolean
 }
 
 // for creating static
